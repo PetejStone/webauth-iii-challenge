@@ -42,11 +42,13 @@ router.post('/login', (req, res) => {
     })
 })
 
+
+
 function generateToken(user) { //brings in username and password generated at login
     const payload = { //creates data object called payload -- all data is created by fn -- we can create any data we want for this token
       subject: user.id, // sets subject == the user id
       username: user.username, //sets username == username
-      department: ['teacher'], //create a department key and set it == teacher
+      department: [user.department], //create a department key and set it == teacher
     };
   
     const options = { //options to be set
