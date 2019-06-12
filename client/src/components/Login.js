@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {login, signUp, logOut} from '../actions';
+import {login} from '../actions';
 
 
 class Login extends React.Component {
@@ -48,6 +48,8 @@ login = e => {
 });
 }
 
+
+
   render() {
   return (
     <div className="App">
@@ -71,4 +73,4 @@ const mapStateToProps = ({isLoggingIn, error, newUser, pending}) => ({
 
 });
 
-export default connect(mapStateToProps,{login, signUp, logOut})(Login)
+export default connect(mapStateToProps,{login})(Login)
