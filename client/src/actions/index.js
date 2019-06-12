@@ -9,7 +9,7 @@ export const login = creds => dispatch => {
     return axios
         .post('http://localhost:5000/api/auth/login', creds)
         .then(res => {
-            console.log(`${res}`)
+            //console.log(`${res.data.token}`)
             localStorage.setItem("token", res.data.token);
             dispatch({ type: LOGIN_SUCCESS, payload: res.data})
         })
