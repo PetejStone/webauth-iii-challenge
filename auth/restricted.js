@@ -11,7 +11,8 @@ module.exports = (req, res, next) => {
                 //if invalid token
                 res.status(401).json({message: 'invalid credentials'})
             } else {
-                //valid token
+                // if valid token set req.user to an object where it sets department == the token's department value, and username = the token's username value
+                req.user = { department: decodeToken.department, username: decodeToken.username}
                 next()
             }
         })
