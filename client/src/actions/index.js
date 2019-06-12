@@ -44,14 +44,14 @@ export const SUBMIT_SUCCESS = "SUBMIT_SUCCESS"
 export const SUBMIT_FAIL = "SUBMIT_FAIL"
 export const getData = () => dispatch => {
     dispatch({ type: SUBMIT_START });
-    const token = localStorage.getItem('token')
-    const config = {
-        headers: {
-            Authorization: token,
-        }
-    }
+    // const token = localStorage.getItem('token')
+    // const config = {
+    //     headers: {
+    //         Authorization: token,
+    //     }
+    // }
     return axiosWithAuth()
-        .get('http://localhost:5000/api/users', config)
+        .get('http://localhost:5000/api/users/client')
         .then(res => {
             
             

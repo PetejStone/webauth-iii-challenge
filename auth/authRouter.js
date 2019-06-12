@@ -31,6 +31,7 @@ router.post('/login', (req, res) => {
             const token = generateToken(user) //calls generateToken fn  and passes user as argument (username and pass)
             res.status(200).json({
                 message: `Welcome ${user.username}, you have successfully logged in`,
+                department: req.body.department,
                 token
             })
         } else {

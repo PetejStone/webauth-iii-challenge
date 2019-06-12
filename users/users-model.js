@@ -4,7 +4,12 @@ module.exports = {
     find,
     findBy,
     findById,
+    findUsers, // temporary fn for client side as filtering by department throws a 500 error, so returning all in a separete fn
     add
+}
+
+function findUsers() { //returns users table and selects id, username, and password columns to return
+    return db('users').select('id', 'username', 'password')
 }
 
 function find(department) { //returns users table and selects id, username, and password columns to return

@@ -11,6 +11,14 @@ router.get('/', restricted, checkRole('teacher'), (req, res) => {
     .catch(err => res.status(500).json({message: err}))
 })
 
+router.get('/client', restricted, checkRole('teacher'), (req, res) => {
+    Users.findUsers()
+    .then( users => {
+        res.status(200).json({users})
+    })
+    .catch(err => res.status(500).json({message: err}))
+})
+
 router.get('/:id', async (req, res) => {
     
     Users.findById(req.params.id)
