@@ -16,7 +16,7 @@ class Users extends React.Component {
 
    logout = e => {
     e.preventDefault();
-    localStorage.clear()
+    localStorage.removeItem('token')
     this.props.history.push('/')
    
 
@@ -28,7 +28,7 @@ class Users extends React.Component {
                 {this.props.users.map(user =>
                     <h1>{user.username}</h1>)}
                 </div>
-                <button onClick={this.logout}>Logout</button>
+                <button className="register" onClick={this.logout}>Logout</button>
             </div>
           
            

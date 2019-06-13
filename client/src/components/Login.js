@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {login, signUp} from '../actions';
-
+import './Form.scss'
 
 class Login extends React.Component {
   state = {
@@ -82,9 +82,10 @@ this.props.signUp(this.state.user).then( () => {
         }
         <button>{this.state.loginForm ? "Log In" : "Submit" }</button>
       </form>
-      {this.props.error && <p>User already exists, please select another username</p>}
+      {this.props.error && this.state.signupForm && <p className="error">User already exists, please select another username</p>}
+      {this.props.newUser && this.state.loginForm && <p className="new-user">You have successfully created a new user</p>}
       <p>Not a registered user?</p>
-      <button onClick={ this.state.loginForm ? 
+      <button className="register" onClick={ this.state.loginForm ? 
         ()=> this.setState({loginForm:false,signupForm:true}) : //sets form to be the register form
         ()=> this.setState({loginForm:true,signupForm:false}) //sets form to be the login form
       }> 
