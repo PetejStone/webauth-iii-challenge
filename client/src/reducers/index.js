@@ -9,7 +9,9 @@ import {
 
     SIGNUP_START,
     SIGNUP_SUCCESS,
-    SIGNUP_FAIL
+    SIGNUP_FAIL,
+    LOGOUT,
+    RESET
 
 } from '../actions';
 const initialState = {
@@ -20,7 +22,9 @@ const initialState = {
     pending: false,
     submitFail: false,
     credentials: [],
-    newUser: false
+    newUser: false,
+    user: {},
+    loggedIn: false
 
     // Array characters, Boolean fetching, null error.
   };
@@ -37,13 +41,16 @@ const initialState = {
             return {
                 ...state,
                 loggingIn: false,
-                credentials: action.payload
+                credentials: action.payload,
+                user: action.payload,
+                loggedIn: true
+               
             }
             case LOGIN_FAIL:
             return {
                 ...state,
                 loggingIn: false,
-                error: action.payload,
+                error: true,
                 pending: false
             }
         
@@ -65,6 +72,7 @@ const initialState = {
             ...state,
             users: action.payload,
             isLoading: false
+            
             }
 
             case SIGNUP_START:
@@ -83,8 +91,27 @@ const initialState = {
             return {
             ...state,
             newUser: false,
-            error: 'User already exists, please select another username'
+            error: true
             }
+
+            case LOGOUT:
+            return {
+            ...state,
+            newUser: false,
+            error: false,
+            user: {},
+            loggedIn: false
+            }
+
+            case RESET:
+            return {
+            ...state,
+            newUser: false,
+            error: false,
+            user: {},
+            loggedIn: false
+            }
+           
            
        
            

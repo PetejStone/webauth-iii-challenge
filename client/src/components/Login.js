@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {login, signUp} from '../actions';
+import {login, signUp, reset} from '../actions';
 import './Form.scss'
 
 class Login extends React.Component {
@@ -46,7 +46,9 @@ login = e => {
   e.preventDefault();
  console.log(`LOGIN : ${this.state.credentials}`)
  this.props.login(this.state.credentials).then(() => {
- this.props.history.push('/users')
+   if(this.props.loggedIn === true) { //if logged in passes and user exists
+  this.props.history.push('/users')
+   }
 });
 }
 
@@ -61,8 +63,18 @@ this.props.signUp(this.state.user).then( () => {
     })
     }
 })
+}
 
+changeForm = e => {
+  e.preventDefault();
+   this.props.reset()
 
+  if (this.state.loginForm) {
+    this.setState({loginForm:false,signupForm:true})
+    //this.setState({loginForm:false,signupForm:true}
+  } else if (this.state.signupForm) {
+    this.setState({loginForm:true,signupForm:false})
+  }
 }
 
 
@@ -82,13 +94,11 @@ this.props.signUp(this.state.user).then( () => {
         }
         <button>{this.state.loginForm ? "Log In" : "Submit" }</button>
       </form>
+      {this.props.error && this.state.loginForm && <p className="error">Invalid Username or Password</p>}
       {this.props.error && this.state.signupForm && <p className="error">User already exists, please select another username</p>}
       {this.props.newUser && this.state.loginForm && <p className="new-user">You have successfully created a new user</p>}
       <p>Not a registered user?</p>
-      <button className="register" onClick={ this.state.loginForm ? 
-        ()=> this.setState({loginForm:false,signupForm:true}) : //sets form to be the register form
-        ()=> this.setState({loginForm:true,signupForm:false}) //sets form to be the login form
-      }> 
+      <button className="register" onClick={this.changeForm}> 
         {this.state.loginForm ? "Register" : "Go Back"} 
       </button>
     </div>
@@ -96,12 +106,13 @@ this.props.signUp(this.state.user).then( () => {
   }
 }
 
-const mapStateToProps = ({isLoggingIn, error, newUser, pending}) => ({
+const mapStateToProps = ({isLoggingIn, error, newUser, pending, loggedIn}) => ({
   isLoggingIn,
   error,
   newUser,
-  pending
+  pending,
+  loggedIn
 
 });
 
-export default connect(mapStateToProps,{login, signUp})(Login)
+export default connect(mapStateToProps,{login, signUp, reset})(Login)

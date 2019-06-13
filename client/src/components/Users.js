@@ -1,7 +1,7 @@
 import React from 'react';
 //import {Route} from 'react-router-dom';
 
-import {getData} from '../actions'
+import {getData, logOut} from '../actions'
 import {connect} from 'react-redux';
 
 class Users extends React.Component {
@@ -17,6 +17,10 @@ class Users extends React.Component {
    logout = e => {
     e.preventDefault();
     localStorage.removeItem('token')
+    localStorage.removeItem('username')
+    localStorage.removeItem('department')
+    
+    this.props.logOut()
     this.props.history.push('/')
    
 
@@ -24,6 +28,8 @@ class Users extends React.Component {
     render() {
         return (
             <div>
+                <h1>Welcome {this.props.user.username}</h1>
+                <p>You are signed in as a {this.props.user.department}</p>
                 <div>
                 {this.props.users.map(user =>
                     <h1>{user.username}</h1>)}
@@ -39,7 +45,8 @@ class Users extends React.Component {
 
 const mapStateToProps = (state) => ({
     credentials: state.credentials,
-    users: state.users
+    users: state.users,
+    user: state.user
 })
 
-export default connect(mapStateToProps,{getData})(Users)
+export default connect(mapStateToProps,{getData, logOut})(Users)
