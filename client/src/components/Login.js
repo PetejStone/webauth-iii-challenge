@@ -53,11 +53,16 @@ login = e => {
 signup = e => {
   e.preventDefault();
  console.log(`SIGNUP: ${this.state.credentials}`)
-this.props.signUp(this.state.user)
-this.setState({
-  loginForm: true,
-  signupForm: false
+this.props.signUp(this.state.user).then( () => {
+  if (this.props.error === false) { //if signup err = true, this means user exists, so do not run code below to return to login
+    this.setState({
+      loginForm: true,
+      signupForm: false
+    })
+    }
 })
+
+
 }
 
 
@@ -77,6 +82,7 @@ this.setState({
         }
         <button>{this.state.loginForm ? "Log In" : "Submit" }</button>
       </form>
+      {this.props.error && <p>User already exists, please select another username</p>}
       <p>Not a registered user?</p>
       <button onClick={ this.state.loginForm ? 
         ()=> this.setState({loginForm:false,signupForm:true}) : //sets form to be the register form

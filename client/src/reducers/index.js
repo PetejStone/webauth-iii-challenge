@@ -5,17 +5,22 @@ import {
 
     SUBMIT_START,
     SUBMIT_SUCCESS,
-    SUBMIT_FAIL
+    SUBMIT_FAIL,
+
+    SIGNUP_START,
+    SIGNUP_SUCCESS,
+    SIGNUP_FAIL
 
 } from '../actions';
 const initialState = {
     users: [],
     isLoggingIn: false,
-    error: null,
+    error: false,
     isLoading: false,
     pending: false,
     submitFail: false,
-    credentials: []
+    credentials: [],
+    newUser: false
 
     // Array characters, Boolean fetching, null error.
   };
@@ -25,7 +30,8 @@ const initialState = {
             case LOGIN_START:
             return {
                 ...state,
-                loggingIn: true
+                loggingIn: true,
+                newUser: false
             }
             case LOGIN_SUCCESS:
             return {
@@ -59,6 +65,25 @@ const initialState = {
             ...state,
             users: action.payload,
             isLoading: false
+            }
+
+            case SIGNUP_START:
+            return {
+            ...state,
+            }
+
+            case SIGNUP_SUCCESS:
+            return {
+            ...state,
+            newUser: true,
+            error: false
+            }
+
+            case SIGNUP_FAIL:
+            return {
+            ...state,
+            newUser: false,
+            error: 'User already exists, please select another username'
             }
            
        
