@@ -46,6 +46,25 @@ export const getData = () => dispatch => {
 
 }
 
+export const SIGNUP_START = "SIGNUP_START";
+export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
+export const SIGNUP_FAIL = "SIGNUP_FAIL;"
+export const signUp = creds => dispatch => {
+    console.log(creds)
+    dispatch({ type: SIGNUP_START });
+    return axios
+        .post('http://localhost:5000/api/auth/register', creds)
+        .then(res => {
+            console.log(res.data.payload)
+            //localStorage.setItem("token", res.data.payload);
+            dispatch({ type: SIGNUP_SUCCESS, payload: res.data.payload})
+        })
+        .catch(err => {
+            console.log(err)
+            dispatch({ type: SIGNUP_FAIL, payload: ''})
+        })
+
+}
 
 
 
