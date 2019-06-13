@@ -53,6 +53,7 @@ login = e => {
   render() {
   return (
     <div className="App">
+    <h1>{this.state.loginForm ? "Login" : "Sign Up"}</h1>
       <form onSubmit={this.login}>
         <label htmlFor="username">Username</label>
         <input id="username" type="text" name="username" value={this.state.credentials.username} onChange={this.handleChange} required/>
@@ -60,6 +61,10 @@ login = e => {
         <input id="password" type="password" name="password" value={this.state.credentials.password} onChange={this.handleChange} required/>
         <button>Submit</button>
       </form>
+      <p>Not a registered user?</p>
+      <button onClick={()=> this.setState({loginForm:false,signupForm:true})}>
+        {this.state.loginForm ? "Register" : "Go Back"}
+      </button>
     </div>
   );
   }
